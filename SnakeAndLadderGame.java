@@ -14,6 +14,10 @@ class SnakeAndLadderGame {
         this.board = new HashMap<>();
         initializeBoard();
     }
+    private void printPlayerPositions()
+    {
+        System.out.println("Player 1 : "+ playerPositions[0] + "Player 2 :"+ playerPositions[1]);
+    }
 
     private void initializeBoard() {
         // Initialize ladder positions
@@ -51,12 +55,46 @@ class SnakeAndLadderGame {
         return new Random().nextInt(6) + 1;
     }
 
+    private void movePlayer(int diceValue) {
+        int currentPlayerPosition = playerPositions[currentPlayer - 1];
+        int newPosition = currentPlayerPosition + diceValue;
+
+        if (board.containsKey(newPosition)) {
+            int newPositionAfterMove = board.get(newPosition);
+
+            if (newPositionAfterMove > newPosition) {
+                System.out.println("Player " + currentPlayer + " climbed a ladder!");
+            } else {
+                System.out.println("Player " + currentPlayer + " encountered a snake!");
+            }
+
+            newPosition = newPositionAfterMove;
+        }
+
+        if (newPosition <= WINNING_POSITION) {
+            playerPositions[currentPlayer - 1] = newPosition;
+        }
+
+        if (newPosition == WINNING_POSITION) {
+            System.out.println("Player " + currentPlayer + " wins!");
+            System.exit(0);
+        }
+
+        if (newPosition < 0) {
+            System.out.println("Oops! Player " + currentPlayer + " moved below 0. Restarting from 0.");
+            playerPositions[currentPlayer - 1] = START_POSITION;
+        }
+    }
+
     public static void main(String[] args) {
         SnakeAndLadderGame game = new SnakeAndLadderGame();
         game.printBoard();
 
         int diceValue = game.rollDice();
         System.out.println("Dice Value: " + diceValue);
+
+        game.movePlayer(diceValue);
+        game.printPlayerPositions();
     }
-    
 }
+    
