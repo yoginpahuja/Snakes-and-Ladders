@@ -100,13 +100,36 @@ class SnakeAndLadderGame {
         }
     }
 
-     private void reportDiceRollsAndPositions() {
-        int diceRollCount = 0;
+    //  private void reportDiceRollsAndPositions() {
+    //     int diceRollCount = 0;
 
-        while (!isGameOver()) {
+    //     while (!isGameOver()) {
+    //         int diceValue = rollDice();
+    //         diceRollCount++;
+    //         System.out.println("Player " + currentPlayer + " - Dice Roll #" + diceRollCount + ": " + diceValue);
+
+    //         movePlayer(diceValue);
+    //         printPlayerPositions();
+    //         switchPlayer();
+    //     }
+
+    //     ensureExactWinningPosition();
+    //     System.out.println("Player " + currentPlayer + " reached the winning position in " + diceRollCount + " dice rolls.");
+    // }
+
+    private boolean isGameWinner() {
+        return playerPositions[currentPlayer - 1] == WINNING_POSITION;
+    }
+
+    private void determineWinner() {
+        int winner = isGameWinner() ? currentPlayer : 3 - currentPlayer;
+        System.out.println("Player " + winner + " wins!");
+    }
+
+    public void playGameWithTwoPlayers() {
+        while (!isGameWinner()) {
             int diceValue = rollDice();
-            diceRollCount++;
-            System.out.println("Player " + currentPlayer + " - Dice Roll #" + diceRollCount + ": " + diceValue);
+            System.out.println("Player " + currentPlayer + " - Dice Roll: " + diceValue);
 
             movePlayer(diceValue);
             printPlayerPositions();
@@ -114,13 +137,13 @@ class SnakeAndLadderGame {
         }
 
         ensureExactWinningPosition();
-        System.out.println("Player " + currentPlayer + " reached the winning position in " + diceRollCount + " dice rolls.");
+        determineWinner();
     }
 
     public static void main(String[] args) {
         SnakeAndLadderGame game = new SnakeAndLadderGame();
         game.printBoard();
 
-        game.reportDiceRollsAndPositions();
+        game.playGameWithTwoPlayers();
     }
 }
