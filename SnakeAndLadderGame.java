@@ -92,6 +92,14 @@ class SnakeAndLadderGame {
         return playerPositions[currentPlayer - 1] >= WINNING_POSITION;
     }
 
+   private void ensureExactWinningPosition() {
+        int currentPlayerPosition = playerPositions[currentPlayer - 1];
+        if (currentPlayerPosition > WINNING_POSITION) {
+            System.out.println("Player " + currentPlayer + " moved beyond 100, staying at the previous position.");
+            playerPositions[currentPlayer - 1] -= (currentPlayerPosition - WINNING_POSITION);
+        }
+    }
+
     public void playGame() {
         int diceRollCount = 0;
 
@@ -104,6 +112,8 @@ class SnakeAndLadderGame {
             printPlayerPositions();
             switchPlayer();
         }
+
+        ensureExactWinningPosition();
     }
 
     public static void main(String[] args) {
@@ -113,4 +123,3 @@ class SnakeAndLadderGame {
         game.playGame();
     }
 }
-    
