@@ -100,7 +100,7 @@ class SnakeAndLadderGame {
         }
     }
 
-    public void playGame() {
+     private void reportDiceRollsAndPositions() {
         int diceRollCount = 0;
 
         while (!isGameOver()) {
@@ -114,12 +114,13 @@ class SnakeAndLadderGame {
         }
 
         ensureExactWinningPosition();
+        System.out.println("Player " + currentPlayer + " reached the winning position in " + diceRollCount + " dice rolls.");
     }
 
     public static void main(String[] args) {
         SnakeAndLadderGame game = new SnakeAndLadderGame();
         game.printBoard();
 
-        game.playGame();
+        game.reportDiceRollsAndPositions();
     }
 }
