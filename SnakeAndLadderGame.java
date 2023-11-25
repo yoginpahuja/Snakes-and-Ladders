@@ -44,7 +44,9 @@ class SnakeAndLadderGame {
         board.put(95, 75);
         board.put(98, 78);
     }
-
+    private void switchPlayer() {
+        currentPlayer = 3 - currentPlayer;
+    }
     public void printBoard() {
         System.out.println("Snake and Ladder Board:");
         for (Map.Entry<Integer, Integer> entry : board.entrySet()) {
@@ -86,15 +88,29 @@ class SnakeAndLadderGame {
         }
     }
 
+     private boolean isGameOver() {
+        return playerPositions[currentPlayer - 1] >= WINNING_POSITION;
+    }
+
+    public void playGame() {
+        int diceRollCount = 0;
+
+        while (!isGameOver()) {
+            int diceValue = rollDice();
+            diceRollCount++;
+            System.out.println("Player " + currentPlayer + " - Dice Roll #" + diceRollCount + ": " + diceValue);
+
+            movePlayer(diceValue);
+            printPlayerPositions();
+            switchPlayer();
+        }
+    }
+
     public static void main(String[] args) {
         SnakeAndLadderGame game = new SnakeAndLadderGame();
         game.printBoard();
 
-        int diceValue = game.rollDice();
-        System.out.println("Dice Value: " + diceValue);
-
-        game.movePlayer(diceValue);
-        game.printPlayerPositions();
+        game.playGame();
     }
 }
     
