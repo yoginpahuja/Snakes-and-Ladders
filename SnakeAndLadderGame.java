@@ -47,9 +47,16 @@ class SnakeAndLadderGame {
             System.out.println("Position " + entry.getKey() + " -> " + entry.getValue());
         }
     }
+    private int rollDice() {
+        return new Random().nextInt(6) + 1;
+    }
 
     public static void main(String[] args) {
         SnakeAndLadderGame game = new SnakeAndLadderGame();
         game.printBoard();
+
+        int diceValue = game.rollDice();
+        System.out.println("Dice Value: " + diceValue);
     }
+    
 }
